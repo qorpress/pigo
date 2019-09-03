@@ -3,8 +3,6 @@ package pigo
 import (
 	"image"
 	"image/color"
-	_ "image/jpeg"
-	_ "image/png"
 	"os"
 )
 
