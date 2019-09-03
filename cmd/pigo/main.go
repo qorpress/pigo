@@ -33,6 +33,7 @@ Go (Golang) Face detection library.
 var Version string
 
 var (
+	srcImg    *image.NRGBA
 	dc        *gg.Context
 	plc       *pigo.PuplocCascade
 	imgParams *pigo.ImageParams
@@ -147,16 +148,18 @@ func main() {
 
 // detectFaces run the detection algorithm over the provided source image.
 func (fd *faceDetector) detectFaces(source string) ([]pigo.Detection, error) {
-	src, err := pigo.GetImage(source)
+	var err error
+
+	srcImg, err = pigo.GetImage(source)
 	if err != nil {
 		return nil, err
 	}
 
-	pixels := pigo.RgbToGrayscale(src)
-	cols, rows := src.Bounds().Max.X, src.Bounds().Max.Y
+	pixels := pigo.RgbToGrayscale(srcImg)
+	cols, rows := srcImg.Bounds().Max.X, srcImg.Bounds().Max.Y
 
 	dc = gg.NewContext(cols, rows)
-	dc.DrawImage(src, 0, 0)
+	dc.DrawImage(srcImg, 0, 0)
 
 	imgParams = &pigo.ImageParams{
 		Pixels: pixels,
@@ -257,10 +260,17 @@ func (fd *faceDetector) drawFaces(faces []pigo.Detection, isCircle bool) ([]byte
 
 				det := plc.RunDetector(*puploc, *imgParams)
 				if det.Row > 0 && det.Col > 0 {
+					blinkLeft, _, err := pigo.BlinkDetector(det, srcImg)
+					if err != nil {
+						return nil, nil, err
+					}
+					//fmt.Println(det.Col-int(det.Scale/2), det.Row-int(det.Scale/2))
+					dc.DrawImage(blinkLeft, det.Col-int(det.Scale*1.5), det.Row-int(det.Scale*1.5))
+
 					dc.DrawArc(
 						float64(det.Col),
 						float64(det.Row),
-						float64(det.Scale*0.5),
+						float64(2),
 						0,
 						2*math.Pi,
 					)
@@ -290,10 +300,16 @@ func (fd *faceDetector) drawFaces(faces []pigo.Detection, isCircle bool) ([]byte
 
 				det = plc.RunDetector(*puploc, *imgParams)
 				if det.Row > 0 && det.Col > 0 {
+					blinkRight, _, err := pigo.BlinkDetector(det, srcImg)
+					if err != nil {
+						return nil, nil, err
+					}
+					dc.DrawImage(blinkRight, det.Col-int(det.Scale*1.5), det.Row-int(det.Scale*1.5))
+
 					dc.DrawArc(
 						float64(det.Col),
 						float64(det.Row),
-						float64(det.Scale*0.5),
+						float64(2),
 						0,
 						2*math.Pi,
 					)
