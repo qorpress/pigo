@@ -23,8 +23,8 @@ func RgbToGrayscale(src image.Image) []uint8 {
 	return gray
 }
 
-// rgbToGrayscale converts the image to grayscale mode but it returns as an image.
-func rgbToGrayscale(src *image.NRGBA) *image.NRGBA {
+// convertTogray converts the image to grayscale mode but it returns as an image.
+func convertTogray(src *image.NRGBA) *image.NRGBA {
 	dx, dy := src.Bounds().Max.X, src.Bounds().Max.Y
 	dst := image.NewNRGBA(src.Bounds())
 	for x := 0; x < dx; x++ {

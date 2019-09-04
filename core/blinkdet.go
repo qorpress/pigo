@@ -14,22 +14,21 @@ type SubImager interface {
 }
 
 // BlinkDetector detects blink occurrence.
-func BlinkDetector(puploc *Puploc, img image.Image) (image.Image, bool, error) {
+func BlinkDetector(puploc *Puploc, img image.Image) (bool, error) {
 	rect := image.Rect(
-		puploc.Col-int(puploc.Scale*1.5),
-		puploc.Row-int(puploc.Scale*1.5),
-		puploc.Col+int(puploc.Scale*1.5),
-		puploc.Row+int(puploc.Scale*1.5),
+		puploc.Col-int(puploc.Scale),
+		puploc.Row-int(puploc.Scale),
+		puploc.Col+int(puploc.Scale),
+		puploc.Row+int(puploc.Scale),
 	)
 	//fmt.Println(rect.Bounds())
 	subImg := img.(SubImager).SubImage(rect)
 	dx, dy := subImg.Bounds().Dx(), subImg.Bounds().Dy()
 
-	blur, err := stackblur.Run(rgbToGrayscale(subImg.(*image.NRGBA)), 5)
+	blur, err := stackblur.Run(subImg.(*image.NRGBA), 4)
 	if err != nil {
-		return nil, false, err
+		return false, err
 	}
-
 	res := Sobel(blur.(*image.NRGBA), 70)
 
 	// Use pixel thresholding to obtain a full black and white sub image.
@@ -46,11 +45,10 @@ func BlinkDetector(puploc *Puploc, img image.Image) (image.Image, bool, error) {
 			res.Set(x, y, threshold(pixel))
 		}
 	}
-	if ok := detectBlink(res, 0.44); !ok {
-		fmt.Println("Blink detected")
-		return res, true, nil
+	if ok := detectBlink(res, 0.9); !ok {
+		return true, nil
 	}
-	return res, false, nil
+	return false, nil
 }
 
 func detectBlink(src *image.NRGBA, th float64) bool {
@@ -139,10 +137,10 @@ func detectBlink(src *image.NRGBA, th float64) bool {
 	if cx > 0 && cy > 0 {
 		ratio = float64(cy) / float64(cx)
 	}
-	fmt.Println("XY:", cx, cy)
+	//fmt.Println("XY:", cx, cy)
 	fmt.Println("Ratio:", ratio)
 	if ratio > th {
-		return true
+		return false
 	}
-	return false
+	return true
 }
