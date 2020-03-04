@@ -3,7 +3,7 @@ package detector
 import (
 	"errors"
 
-	pigo "github.com/esimov/pigo/core"
+	pigo "github.com/qorpress/pigo/core"
 )
 
 // FlpCascade holds the binary representation of the facial landmark points cascade files

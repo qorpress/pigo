@@ -18,8 +18,8 @@ base: core18
 parts:
   pigo:
     plugin: go
-    source: https://github.com/esimov/pigo.git
-    go-importpath: github.com/esimov/pigo
+    source: https://github.com/qorpress/pigo.git
+    go-importpath: github.com/qorpress/pigo
     build-packages:
       - build-essential
 apps:

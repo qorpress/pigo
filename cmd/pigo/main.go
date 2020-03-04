@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"github.com/disintegration/imaging"
-	pigo "github.com/esimov/pigo/core"
+	pigo "github.com/qorpress/pigo/core"
 	"github.com/fogleman/gg"
 )
 

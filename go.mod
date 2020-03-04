@@ -1,4 +1,4 @@
-module github.com/esimov/pigo
+module github.com/qorpress/pigo
 
 go 1.12
 

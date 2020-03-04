@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"unsafe"
 
-	pigo "github.com/esimov/pigo/core"
+	pigo "github.com/qorpress/pigo/core"
 	"github.com/esimov/triangle"
 )
 

@@ -5,7 +5,7 @@ import (
 	"math"
 	"syscall/js"
 
-	"github.com/esimov/pigo/wasm/detector"
+	"github.com/qorpress/pigo/wasm/detector"
 )
 
 // Canvas struct holds the Javascript objects needed for the Canvas creation

@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	pigo "github.com/esimov/pigo/core"
+	pigo "github.com/qorpress/pigo/core"
 )
 
 var flpc []byte

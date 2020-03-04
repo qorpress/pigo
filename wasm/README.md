@@ -4,7 +4,7 @@
 
 Thanks to the [syscall/js](https://golang.org/pkg/syscall/js/) package included into the Go code base, Pigo has been ported to WASM 🎉. This gives a huge gain in terms of real time performance. 
 
-This means that there is no need anymore to run it in a Python environment as a shared library. For more details check the project description from the [Readme](https://github.com/esimov/pigo/blob/master/README.md#real-time-face-detection) file and also this [blog post](https://esimov.com/2019/11/pupilseyes-localization-in-the-pigo-face-detection-library).
+This means that there is no need anymore to run it in a Python environment as a shared library. For more details check the project description from the [Readme](https://github.com/qorpress/pigo/blob/master/README.md#real-time-face-detection) file and also this [blog post](https://esimov.com/2019/11/pupilseyes-localization-in-the-pigo-face-detection-library).
 
 ## How to run it?
 

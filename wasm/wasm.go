@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/esimov/pigo/wasm/canvas"
+	"github.com/qorpress/pigo/wasm/canvas"
 )
 
 func main() {

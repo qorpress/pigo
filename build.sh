@@ -49,7 +49,7 @@ trap rmtemp EXIT
 
 if [ "$NOCOPY" != "1" ]; then
 	# copy all files to an isolated directory.
-	WD="$TMP/src/github.com/esimov/pigo"
+	WD="$TMP/src/github.com/qorpress/pigo"
 	export GOPATH="$TMP"
 	for file in `find . -type f`; do
 		# TODO: use .gitignore to ignore, or possibly just use git to determine the file list.
